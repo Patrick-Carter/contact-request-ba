@@ -3,11 +3,24 @@ const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const pdf = require("html-pdf");
 const nodemailer = require("nodemailer");
-require("dotenv").config();
 
 const ContractRequestTemplate = require("./templates/ContractRequest");
+const sendEmail = require("./util/sendEmail");
 
 const server = express();
+
+// create reusable transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  auth: {
+    user: `${process.env.EMAIL}`,
+    pass: `${process.env.PASSWORD}`,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 server.use(cors());
 
@@ -15,9 +28,11 @@ server.use(express.json());
 server.use(fileUpload());
 
 server.post("/form", (req, res, next) => {
+  let sellerDisclosure;
+  let preapprovalLetter;
 
   if (req.files !== null && req.files.sellersDisclosure) {
-    const sellerDisclosure = req.files.sellersDisclosure;
+    sellerDisclosure = req.files.sellersDisclosure;
 
     sellerDisclosure.mv(
       `${__dirname}/uploads/${sellerDisclosure.name}`,
@@ -31,7 +46,7 @@ server.post("/form", (req, res, next) => {
   }
 
   if (req.files !== null && req.files.preapprovalLetter) {
-    const preapprovalLetter = req.files.preapprovalLetter;
+    preapprovalLetter = req.files.preapprovalLetter;
 
     preapprovalLetter.mv(
       `${__dirname}/uploads/${preapprovalLetter.name}`,
@@ -55,38 +70,38 @@ server.post("/form", (req, res, next) => {
     });
 
   // MAKE EMAIL
+  if (sellerDisclosure && preapprovalLetter) {
+    sendEmail.all(
+      sellerDisclosure.name,
+      preapprovalLetter.name,
+      "pcarter@pdcmix.com",
+      `${process.env.EMAIL}`,
+      transporter
+    );
+    console.log("both");
+  } else if (sellerDisclosure) {
+    sendEmail.oneExtraFile(
+      sellerDisclosure.name,
+      "pcarter@pdcmix.com",
+      `${process.env.EMAIL}`,
+      transporter
+    );
+  } else if (preapprovalLetter) {
+    sendEmail.oneExtraFile(
+      preapprovalLetter.name,
+      "pcarter@pdcmix.com",
+      `${process.env.EMAIL}`,
+      transporter
+    );
+  } else {
+    sendEmail.pdfOnly(
+      "pcarter@pdcmix.com",
+      `${process.env.EMAIL}`,
+      transporter
+    );
+  }
 
-  // create reusable transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    auth: {
-      user: `${process.env.EMAIL}`,
-      pass: `${process.env.PASSWORD}`,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
-
-  // send mail with defined transport object
-  let info = transporter.sendMail({
-    from: '"BethAnne Realtor Solutions" <kantros13@gmail.com>', // sender address
-    to: "pcarter@pdcmix.com", // list of receivers
-    subject: "Contact Request Form", // Subject line
-    text: "Below you will find important attachments.", // plain text body
-    attachments: [
-      {
-        path: `${__dirname}/contact-request.pdf`,
-      },
-      {
-        path: `${__dirname}/uploads/CanWeCollabPic.jpg`,
-      },
-      {
-        path: `${__dirname}/uploads/yunglo.jpg`,
-      },
-    ],
-  });
+  console.log("Email Sent");
 
   res.status(200).json({ mes: "you did it" });
 });

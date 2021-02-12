@@ -164,7 +164,21 @@ const ContactRequest = (props) => {
     }
 
     formData.append("agentName", formInput.agentName);
-
+    formData.append("buyerName", formInput.buyerName);
+    formData.append("propertyAddress", formInput.propertyAddress);
+    formData.append("salesPrice", formInput.salesPrice);
+    formData.append("finaceType", formInput.finaceType);
+    formData.append("earnest", formInput.earnest);
+    formData.append("paidBy", formInput.paidBy);
+    formData.append("shortages", formInput.shortages);
+    formData.append("propertyOfHOA", formInput.propertyOfHOA);
+    formData.append("propertyAcceptance", formInput.propertyAcceptance);
+    formData.append("residentialServiceContract", formInput.residentialServiceContract);
+    formData.append("possessionOfProperty", formInput.possessionOfProperty);
+    formData.append("sellerConcessions", formInput.sellerConcessions);
+    formData.append("optionPeriod", formInput.optionPeriod);
+    formData.append("additionalAddendums", formInput.additionalAddendums);
+    
     try {
       const res = await axios.post("http://localhost:5000/form", formData, {
         headers: { "Content-Type": "multipart/form-data" },

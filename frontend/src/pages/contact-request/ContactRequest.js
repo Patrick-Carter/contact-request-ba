@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import "./contact-request.module.css";
+import Label from "../../shared/components/label/Label";
+import Card from "../../shared/components/card/Card";
+import styles from "./contact-request.module.css";
 
 const KEY = {
   AGENTNAME: "agentName",
   BUYERNAME: "buyerName",
+  CLOSINGDATE: "closingDate",
   PROPERTYADDRESS: "propertyAddress",
   SALEPRICE: "salePrice",
   FINANCETYPE: "financeType",
@@ -13,6 +16,7 @@ const KEY = {
   PAIDBY: "paidBy",
   SHORTAGES: "shortages",
   PROPERTYOFHOA: "propertyOfHOA",
+  SURVEY: "survey",
   PROPERTYACCEPTANCE: "propertyAcceptance",
   RESSERVICECONTRACT: "resServiceContract",
   POSSESSIONOFPROPERTY: "possessionProperty",
@@ -27,6 +31,7 @@ const ContactRequest = (props) => {
   const [formInput, setFormInput] = useState({
     agentName: "",
     buyerName: "",
+    closingDate: "",
     propertyAddress: "",
     salesPrice: "",
     finaceType: "",
@@ -34,6 +39,7 @@ const ContactRequest = (props) => {
     paidBy: "seller",
     shortages: "not amended",
     propertyOfHOA: "yes",
+    survey: "",
     propertyAcceptance: "",
     residentialServiceContract: "",
     possessionOfProperty: "",
@@ -56,6 +62,12 @@ const ContactRequest = (props) => {
         setFormInput({
           ...formInput,
           buyerName: e.target.value,
+        });
+        break;
+      case KEY.CLOSINGDATE:
+        setFormInput({
+          ...formInput,
+          closingDate: e.target.value,
         });
         break;
       case KEY.PROPERTYADDRESS:
@@ -98,6 +110,12 @@ const ContactRequest = (props) => {
         setFormInput({
           ...formInput,
           propertyOfHOA: e.target.value,
+        });
+        break;
+      case KEY.SURVEY:
+        setFormInput({
+          ...formInput,
+          survey: e.target.value,
         });
         break;
       case KEY.PROPERTYACCEPTANCE:
@@ -165,6 +183,7 @@ const ContactRequest = (props) => {
 
     formData.append("agentName", formInput.agentName);
     formData.append("buyerName", formInput.buyerName);
+    formData.append("closingDate", formInput.closingDate);
     formData.append("propertyAddress", formInput.propertyAddress);
     formData.append("salesPrice", formInput.salesPrice);
     formData.append("finaceType", formInput.finaceType);
@@ -172,13 +191,17 @@ const ContactRequest = (props) => {
     formData.append("paidBy", formInput.paidBy);
     formData.append("shortages", formInput.shortages);
     formData.append("propertyOfHOA", formInput.propertyOfHOA);
+    formData.append("survey", formInput.survey);
     formData.append("propertyAcceptance", formInput.propertyAcceptance);
-    formData.append("residentialServiceContract", formInput.residentialServiceContract);
+    formData.append(
+      "residentialServiceContract",
+      formInput.residentialServiceContract
+    );
     formData.append("possessionOfProperty", formInput.possessionOfProperty);
     formData.append("sellerConcessions", formInput.sellerConcessions);
     formData.append("optionPeriod", formInput.optionPeriod);
     formData.append("additionalAddendums", formInput.additionalAddendums);
-    
+
     try {
       const res = await axios.post("http://localhost:5000/form", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -190,28 +213,41 @@ const ContactRequest = (props) => {
 
   return (
     <form id="contact-request-form" onSubmit={handleSubmit}>
-      <label className="hi" htmlFor="agent-name">
-        Agent Name
-      </label>
-      <input
-        type="text"
-        name="agent-name"
-        value={formInput.agentName}
-        onChange={(e) => handleFormState(e, KEY.AGENTNAME)}
-      />
+      <Card cardState="current">
+        <Label label="Monument Agent" labelFor="agent-name" require={true} />
+        <input
+          type="text"
+          name="agent-name"
+          required
+          value={formInput.agentName}
+          onChange={(e) => handleFormState(e, KEY.AGENTNAME)}
+        />
 
-      <label htmlFor="buyer-name">Buyer Name(s)</label>
-      <input
-        type="text"
-        name="buyer-name"
-        value={formInput.buyerName}
-        onChange={(e) => handleFormState(e, KEY.BUYERNAME)}
-      />
+        <Label label="Buyer Name(s)" labelFor="buyer-name" require={true} />
+        <input
+          type="text"
+          name="buyer-name"
+          required
+          value={formInput.buyerName}
+          onChange={(e) => handleFormState(e, KEY.BUYERNAME)}
+        />
 
-      <label htmlFor="property-address">Property Address</label>
+        <Label label="Closing Date" labelFor="closing-date" require={true} />
+        <input
+          type="date"
+          name="closing-date"
+          min="2021-01-01"
+          required
+          value={formInput.closingDate}
+          onChange={(e) => handleFormState(e, KEY.CLOSINGDATE)}
+        />
+        <button className={styles.nextButton}>Next</button>
+      </Card>
+      {/* <label htmlFor="property-address">Property Address</label>
       <input
         type="text"
         name="property-address"
+        required
         value={formInput.propertyAddress}
         onChange={(e) => handleFormState(e, KEY.PROPERTYADDRESS)}
       />
@@ -220,6 +256,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="sale-price"
+        required
         value={formInput.salesPrice}
         onChange={(e) => handleFormState(e, KEY.SALEPRICE)}
       />
@@ -228,6 +265,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="finace-type"
+        required
         value={formInput.finaceType}
         onChange={(e) => handleFormState(e, KEY.FINANCETYPE)}
       />
@@ -236,6 +274,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="earnest"
+        required
         value={formInput.earnest}
         onChange={(e) => handleFormState(e, KEY.EARNEST)}
       />
@@ -254,6 +293,7 @@ const ContactRequest = (props) => {
       <label htmlFor="shortages">Shortages</label>
       <select
         name="shortages"
+        required
         value={formInput.shortages}
         onChange={(e) => handleFormState(e, KEY.SHORTAGES)}
       >
@@ -265,12 +305,22 @@ const ContactRequest = (props) => {
       <label htmlFor="property-in-hoa">Property in HOA</label>
       <select
         name="property-in-hoa"
+        required
         value={formInput.propertyOfHOA}
         onChange={(e) => handleFormState(e, KEY.PROPERTYOFHOA)}
       >
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
+
+      <label htmlFor="survey">Survey</label>
+      <input
+        type="text"
+        name="survey"
+        required
+        value={formInput.survey}
+        onChange={(e) => handleFormState(e, KEY.SURVEY)}
+      />
 
       <label htmlFor="sellers-disclosure">
         Seller's Disclosure (if not in transaction desk)
@@ -296,6 +346,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="residential-service"
+        required
         value={formInput.residentialServiceContract}
         onChange={(e) => handleFormState(e, KEY.RESSERVICECONTRACT)}
       />
@@ -304,6 +355,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="possession-of-property"
+        required
         value={formInput.possessionOfProperty}
         onChange={(e) => handleFormState(e, KEY.POSSESSIONOFPROPERTY)}
       />
@@ -312,6 +364,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="seller-concessions"
+        required
         value={formInput.sellerConcessions}
         onChange={(e) => handleFormState(e, KEY.SELLERCONCESSIONS)}
       />
@@ -320,6 +373,7 @@ const ContactRequest = (props) => {
       <input
         type="text"
         name="option-period"
+        required
         value={formInput.optionPeriod}
         onChange={(e) => handleFormState(e, KEY.OPTIONPERIOD)}
       />
@@ -341,7 +395,7 @@ const ContactRequest = (props) => {
         value={formInput.preapprovalLetter}
         onChange={(e) => handleFormState(e, KEY.PREAPPROVALLETTER)}
       />
-      <button type="submit">Submit</button>
+      <button type="submit">Submit</button> */}
     </form>
   );
 };

@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.form-input {
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-size: 1em;
+  width: 100%;
+  margin-bottom: 3em;
+  background-color: #595353;
+  outline: none;
+  border: none;
+  padding: 0.5em;
+}
+
+.recipient-container {
+  display: flex;
+  margin-bottom: 3em;
+}
+
+.recipient-label {
+  display: block;
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-size: 1em;
+}
+
+.recipient-list {
+  display: block;
+  opacity: 50%;
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-size: 1em;
+  margin-bottom: 3em;
+}
+
+.recipient-checkbox {
+  display: block;
+  margin-right: 1em;
+}
+
+.addAddendums {
+  font-family: "Lato", sans-serif;
+  color: white;
+  font-size: 1em;
+  width: 100%;
+  height: 30vh;
+  margin-bottom: 3em;
+  background-color: #595353;
+  outline: none;
+  border: none;
+  padding: 0.5em;
+}
+
+.nextButton {
+  background-color: #4aacc5;
+  outline: none;
+  border: none;
+  padding: 0.6em 1.2em;
+  align-self: center;
+  border-radius: 5px;
+  color: rgb(231, 219, 219);
+  font-size: 1.1em;
+}
+
+.nextButton:disabled {
+  opacity: 50%;
+  background-color: #2a4b53;
+  outline: none;
+  border: none;
+  padding: 0.6em 1.2em;
+  align-self: center;
+  border-radius: 5px;
+  color: rgb(161, 161, 161);
+  font-size: 1.1em;
+}
+
+.contractContainer, .no-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.no-form {
+  margin-top: 5em;
+}
+
+.cantractTitle {
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 1.3em;
+  margin-top: 0.2em;
+}
+
+.companyLogo {
+  width: 50%;
+  align-self: center;
+}
+
+.progressContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.proDotInactive {
+  display: inline;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #121111;
+  margin: 0 1em;
+  cursor: pointer;
+}
+
+.proDotActive {
+  display: inline;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #c9bebe;
+  margin: 0 1em;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+  .companyLogo {
+    width: 30%;
+    align-self: center;
+  }
+
+  .no-form {
+    margin-top: 15em;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .companyLogo {
+    width: 15%;
+    align-self: center;
+  }
+}

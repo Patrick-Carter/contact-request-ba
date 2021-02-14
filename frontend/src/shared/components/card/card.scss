@@ -6,4 +6,99 @@
   background-color: #121111;
   padding: 2em;
   border-radius: 15px;
+  // transform: translateX(-100%);
+  // animation: current-card 300ms forwards;
+}
+
+.dead {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #121111;
+  padding: 2em;
+  border-radius: 15px;
+}
+
+.out {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #121111;
+  padding: 2em;
+  border-radius: 15px;
+  //transform: translateX(0);
+  //animation: out 300ms forwards;
+}
+
+@media only screen and (min-width: 700px) {
+  .out {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .current {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .out {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .current {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .out {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .current {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 3000px) {
+  .out {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .current {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@keyframes current-card {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }

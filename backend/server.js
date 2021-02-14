@@ -74,7 +74,7 @@ server.post("/form", (req, res, next) => {
     sendEmail.all(
       sellerDisclosure.name,
       preapprovalLetter.name,
-      "pcarter@pdcmix.com",
+      req.body.emailRecipients,
       `${process.env.EMAIL}`,
       transporter
     );
@@ -82,20 +82,20 @@ server.post("/form", (req, res, next) => {
   } else if (sellerDisclosure) {
     sendEmail.oneExtraFile(
       sellerDisclosure.name,
-      "pcarter@pdcmix.com",
+      req.body.emailRecipients,
       `${process.env.EMAIL}`,
       transporter
     );
   } else if (preapprovalLetter) {
     sendEmail.oneExtraFile(
       preapprovalLetter.name,
-      "pcarter@pdcmix.com",
+      req.body.emailRecipients,
       `${process.env.EMAIL}`,
       transporter
     );
   } else {
     sendEmail.pdfOnly(
-      "pcarter@pdcmix.com",
+      req.body.emailRecipients,
       `${process.env.EMAIL}`,
       transporter
     );

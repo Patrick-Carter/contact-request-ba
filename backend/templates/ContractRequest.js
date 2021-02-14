@@ -14,6 +14,8 @@ module.exports = ({
   sellerConcessions,
   optionPeriod,
   additionalAddendums,
+  survey,
+  closingDate,
 }) => {
   const today = new Date();
   return `
@@ -36,7 +38,7 @@ module.exports = ({
       <h2>Buyer Name(s)</h2>
       <p>${buyerName}</p>
       <h2>Closing Date</h2>
-      <p>When did this get here???</p>
+      <p>${closingDate}</p>
       <h2>Property Address</h2>
       <p>${propertyAddress}</p>
       <h2>Sales Price</h2>
@@ -50,7 +52,7 @@ module.exports = ({
       <h2>Shortages</h2>
       <p>${shortages}</p>
       <h2>Survey</h2>
-      <p>When did this get here???</p>
+      <p>${survey}</p>
       <h2>Property in HOA</h2>
       <p>${propertyOfHOA}</p>
       <h2>Property Acceptance (if not as is)</h2>

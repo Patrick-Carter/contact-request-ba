@@ -103,7 +103,7 @@ const ContactRequest = (props) => {
     recipientList: "",
   });
 
-  const [displayForm, setDisplayForm] = useState(false);
+  const [displayForm, setDisplayForm] = useState(true);
 
   const handleFormState = (e, input) => {
     switch (input) {

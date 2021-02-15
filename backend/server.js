@@ -1,8 +1,10 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+require('dotenv').config()
 const pdf = require("html-pdf");
 const nodemailer = require("nodemailer");
+const path = require("path");
 
 const ContractRequestTemplate = require("./templates/ContractRequest");
 const sendEmail = require("./util/sendEmail");
@@ -26,6 +28,8 @@ server.use(cors());
 
 server.use(express.json());
 server.use(fileUpload());
+
+server.use(express.static(path.join("public")));
 
 server.post("/form", (req, res, next) => {
   let sellerDisclosure;
@@ -106,6 +110,10 @@ server.post("/form", (req, res, next) => {
   res.status(200).json({ mes: "you did it" });
 });
 
-server.listen(5000, () => {
-  console.log("server started on port 5000");
+server.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
+server.listen(5001, () => {
+  console.log("server started on port 5001");
 });

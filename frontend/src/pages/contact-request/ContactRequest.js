@@ -52,7 +52,7 @@ const PRO = {
 };
 
 const TC = {
-  MICHELLE: " pcarter@pdcmix.com",
+  MICHELLE: " bethanne@monumentstar.com",
 };
 
 const ContactRequest = (props) => {
@@ -576,7 +576,7 @@ const ContactRequest = (props) => {
     formData.append("emailRecipients", recipients.recipientList);
 
     try {
-      const res = await axios.post("http://localhost:5000/form", formData, {
+      const res = await axios.post("http://solverealty.us/form", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

@@ -37,7 +37,7 @@ async function pdfOnly(recipients, senderEmail, transporter) {
 
   try {
     let info = await transporter.sendMail({
-      from: `"BethAnne Realtor Solutions" <${senderEmail}>`, // sender address
+      from: `"Contract Request" <${senderEmail}>`, // sender address
       to: `${recipients}`, // list of receivers
       subject: "Contact Request Form", // Subject line
       text: "Below you will find important attachments.", // plain text body
@@ -57,7 +57,7 @@ async function oneExtraFile(extraFile, recipients, senderEmail, transporter) {
 
   try {
     let info = await transporter.sendMail({
-      from: `"BethAnne Realtor Solutions" <${senderEmail}>`, // sender address
+      from: `"Contract Request" <${senderEmail}>`, // sender address
       to: `${recipients}`, // list of receivers
       subject: "Contact Request Form", // Subject line
       text: "Below you will find important attachments.", // plain text body

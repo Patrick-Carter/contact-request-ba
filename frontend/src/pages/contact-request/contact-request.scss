@@ -39,7 +39,7 @@
 
 .recipient-list {
   display: block;
-  opacity: 50%;
+  opacity: .7;
   text-align: center;
   font-family: "Lato", sans-serif;
   color: white;
@@ -90,7 +90,7 @@
 }
 
 .nextButton:disabled {
-  opacity: 50%;
+  opacity: .5;
   background-color: #2a4b53;
   outline: none;
   border: none;
@@ -136,7 +136,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #121111;
+  background-color: #524a4a;
   margin: 0 1em;
   cursor: pointer;
 }
@@ -146,7 +146,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #c9bebe;
+  background-color: #e6d8d8;
   margin: 0 1em;
   cursor: pointer;
 }

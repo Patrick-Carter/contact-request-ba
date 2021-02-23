@@ -1,28 +1,14 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-require('dotenv').config()
+require("dotenv").config();
 const pdf = require("html-pdf");
-const nodemailer = require("nodemailer");
 const path = require("path");
 
 const ContractRequestTemplate = require("./templates/ContractRequest");
 const sendEmail = require("./util/sendEmail");
 
 const server = express();
-
-// create reusable transporter object using the default SMTP transport
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  auth: {
-    user: `${process.env.EMAIL}`,
-    pass: `${process.env.PASSWORD}`,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
 
 server.use(cors());
 
@@ -67,51 +53,41 @@ server.post("/form", (req, res, next) => {
 
   pdf
     .create(ContractRequestTemplate(req.body), {})
-    .toFile("contact-request.pdf", (err) => {
+    .toFile("contact-request.pdf", (err, fileinfo) => {
       if (err) {
         console.log(err);
+        res.status(500).json({ mes: "something went wrong" });
+      } else {
+        // MAKE EMAIL
+        if (sellerDisclosure && preapprovalLetter) {
+          sendEmail.all(
+            sellerDisclosure.name,
+            preapprovalLetter.name,
+            req.body.emailRecipients,
+            `${process.env.EMAIL}`
+          );
+        } else if (sellerDisclosure) {
+          sendEmail.oneExtraFile(
+            sellerDisclosure.name,
+            req.body.emailRecipients,
+            `${process.env.EMAIL}`,
+          );
+        } else if (preapprovalLetter) {
+          sendEmail.oneExtraFile(
+            preapprovalLetter.name,
+            req.body.emailRecipients,
+            `${process.env.EMAIL}`,
+          );
+        } else {
+          sendEmail.pdfOnly(req.body.emailRecipients, `${process.env.EMAIL}`);
+        }
+        res.status(200).json({ mes: "you did it" });
       }
     });
-
-  // MAKE EMAIL
-  if (sellerDisclosure && preapprovalLetter) {
-    sendEmail.all(
-      sellerDisclosure.name,
-      preapprovalLetter.name,
-      req.body.emailRecipients,
-      `${process.env.EMAIL}`,
-      transporter
-    );
-    console.log("both");
-  } else if (sellerDisclosure) {
-    sendEmail.oneExtraFile(
-      sellerDisclosure.name,
-      req.body.emailRecipients,
-      `${process.env.EMAIL}`,
-      transporter
-    );
-  } else if (preapprovalLetter) {
-    sendEmail.oneExtraFile(
-      preapprovalLetter.name,
-      req.body.emailRecipients,
-      `${process.env.EMAIL}`,
-      transporter
-    );
-  } else {
-    sendEmail.pdfOnly(
-      req.body.emailRecipients,
-      `${process.env.EMAIL}`,
-      transporter
-    );
-  }
-
-  console.log("Email Sent");
-
-  res.status(200).json({ mes: "you did it" });
 });
 
 server.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
 server.listen(5001, () => {

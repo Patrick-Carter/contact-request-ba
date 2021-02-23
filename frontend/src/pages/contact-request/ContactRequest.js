@@ -576,7 +576,7 @@ const ContactRequest = (props) => {
     formData.append("emailRecipients", recipients.recipientList);
 
     try {
-      const res = await axios.post("http://solverealty.us/form", formData, {
+      const res = await axios.post("http://localhost:5001/form", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

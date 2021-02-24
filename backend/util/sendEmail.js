@@ -3,7 +3,7 @@ const fs = require("fs");
 require("dotenv").config();
 
 //set Sendgrid API key
-sgMail.setApiKey(process.env.SGAPIKEY);
+sgMail.setApiKey(`${process.env.SGAPIKEY}`);
 
 function all(sellerDisclosure, preapprovalLetter, recipients, senderEmail) {
   // setup all attachments

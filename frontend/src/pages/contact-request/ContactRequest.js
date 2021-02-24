@@ -53,7 +53,7 @@ const PRO = {
 };
 
 const TC = {
-  MICHELLE: " pcarter@pdcmix.com",
+  MICHELLE: " bethanne@monumentstar.com",
 };
 
 const ContactRequest = (props) => {

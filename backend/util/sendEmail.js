@@ -1,5 +1,6 @@
 const sgMail = require("@sendgrid/mail");
 const fs = require("fs");
+require("dotenv").config();
 
 //set Sendgrid API key
 sgMail.setApiKey(process.env.SGAPIKEY);
@@ -66,6 +67,8 @@ async function pdfOnly(recipients, senderEmail) {
   const requestAttactment = (attachment = fs
     .readFileSync(pathToRequest)
     .toString("base64"));
+
+
 
   const msg = {
     to: recipients.trim(),

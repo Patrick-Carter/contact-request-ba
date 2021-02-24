@@ -16,6 +16,7 @@ module.exports = ({
   additionalAddendums,
   survey,
   closingDate,
+  buyerEmail,
 }) => {
   const today = new Date();
   return `
@@ -37,6 +38,8 @@ module.exports = ({
       <p>${agentName}</p>
       <h2>Buyer Name(s)</h2>
       <p>${buyerName}</p>
+      <h2>Buyer Email</h2>
+      <p>${buyerEmail}</p>
       <h2>Closing Date</h2>
       <p>${closingDate}</p>
       <h2>Property Address</h2>

@@ -28,6 +28,7 @@ const KEY = {
   ADDITIONALADDENDUMS: "additionalAddendums",
   PREAPPROVALLETTER: "preapprovalLetter",
   SELLERDISCLOSURE: "sellerDisclosure",
+  BUYEREMAIL: "buyerEmail",
 };
 
 const CARDSTATE = {
@@ -52,7 +53,7 @@ const PRO = {
 };
 
 const TC = {
-  MICHELLE: " bethanne@monumentstar.com",
+  MICHELLE: " pcarter@pdcmix.com",
 };
 
 const ContactRequest = (props) => {
@@ -76,6 +77,7 @@ const ContactRequest = (props) => {
     additionalAddendums: "",
     preapprovalLetterFile: "",
     sellersDisclosureFile: "",
+    buyerEmail: "",
   });
 
   const [cardState, setCardState] = useState({
@@ -219,6 +221,12 @@ const ContactRequest = (props) => {
         setFormInput({
           ...formInput,
           preapprovalLetterFile: e.target.files[0],
+        });
+        break;
+      case KEY.BUYEREMAIL:
+        setFormInput({
+          ...formInput,
+          buyerEmail: e.target.value,
         });
         break;
       default:
@@ -574,9 +582,10 @@ const ContactRequest = (props) => {
     formData.append("optionPeriod", formInput.optionPeriod);
     formData.append("additionalAddendums", formInput.additionalAddendums);
     formData.append("emailRecipients", recipients.recipientList);
+    formData.append("buyerEmail", formInput.buyerEmail);
 
     try {
-      const res = await axios.post("http://solverealty.us/form", formData, {
+      const res = await axios.post("http://http://solverealty.us/form", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -868,6 +877,15 @@ const ContactRequest = (props) => {
                 name="additional-addendums"
                 value={formInput.additionalAddendums}
                 onChange={(e) => handleFormState(e, KEY.ADDITIONALADDENDUMS)}
+              />
+
+              <Label label="Buyer Email" labelFor="buyer-email" require />
+              <input
+                type="email"
+                name="buyer-email"
+                className="form-input"
+                value={formInput.buyerEmail}
+                onChange={(e) => handleFormState(e, KEY.BUYEREMAIL)}
               />
 
               <Label label="Select Recipients" require />

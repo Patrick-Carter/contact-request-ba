@@ -6,7 +6,7 @@
   font-size: 1em;
   width: 100%;
   margin-bottom: 3em;
-  background-color: #595353;
+  background-color: #a38b8b;
   outline: none;
   border: none;
   padding: 0.5em;
@@ -18,7 +18,7 @@
   font-size: 1em;
   width: 100%;
   margin-bottom: 3em;
-  background-color: #746d6d;
+  background-color: #b4a2a2;
   outline: none;
   border: none;
   padding: 0.5em;
@@ -59,7 +59,7 @@
   width: 100%;
   height: 30vh;
   margin-bottom: 3em;
-  background-color: #595353;
+  background-color: #a38b8b;
   outline: none;
   border: none;
   padding: 0.5em;
@@ -90,14 +90,13 @@
 }
 
 .nextButton:disabled {
-  opacity: .5;
-  background-color: #2a4b53;
+  background-color: #3d646e;
   outline: none;
   border: none;
   padding: 0.6em 1.2em;
   align-self: center;
   border-radius: 5px;
-  color: rgb(161, 161, 161);
+  color: rgb(194, 191, 191);
   font-size: 1.1em;
 }
 
@@ -136,7 +135,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #524a4a;
+  background-color: #8b7575;
   margin: 0 1em;
   cursor: pointer;
 }
@@ -146,7 +145,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #e6d8d8;
+  background-color: #ffffff;
   margin: 0 1em;
   cursor: pointer;
 }

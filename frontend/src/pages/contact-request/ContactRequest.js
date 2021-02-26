@@ -53,7 +53,7 @@ const PRO = {
 };
 
 const TC = {
-  MICHELLE: " bethanne@monumentstar.com",
+  MICHELLE: " michelleking@monumentstar.com",
 };
 
 const ContactRequest = (props) => {

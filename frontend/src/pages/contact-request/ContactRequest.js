@@ -597,7 +597,7 @@ const ContactRequest = (props) => {
     <div className="contractContainer">
       {displayForm && (
         <div>
-          <h1 className="cantractTitle">Contact Request Form</h1>
+          <h1 className="cantractTitle">Contract Request Form</h1>
           <form id="contact-request-form" onSubmit={handleSubmit}>
             {/* FIRST CARD */}
 
